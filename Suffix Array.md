@@ -28,14 +28,19 @@ vector<int> suffixArray(const string& s) {
         return s1.rank1 == s2.rank1 ? s1.rank2 < s2.rank2 : s1.rank1 < s2.rank1;
     };
     vector<Suffix> suffices;
+    
+    // initialize: for any i, suffix = s[i:], rank1 = suffix[0]-'a', rank2 = suffix[1]-'a'
     for (int i = 0; i < n; ++i) 
         suffices.emplace_back(i, s[i]-'a', i+1<n?s[i+1]-'a':-1);
     sort(suffices.begin(), suffices.end(), cmp);
+    
     // invInd[i] = j : suffix starting at s[i] is now at the jth position of suffices
     vector<int> invInd(n, 0); 
     for (int k = 4; k < n*2; k *= 2) {
         int newRank1 = 0, prevOldRank1 = suffices[0].rank1, unique = 1;
         suffices[0].rank1 = 0, invInd[suffices[0].id] = 0;
+        
+        // assign rank1 for next round
         for (int i = 1; i < n; ++i) {
             if (suffices[i].rank1 == prevOldRank1 && suffices[i].rank2 == suffices[i-1].rank2) 
                 suffices[i].rank1 = newRank1, unique = 0;
@@ -44,6 +49,8 @@ vector<int> suffixArray(const string& s) {
             invInd[suffices[i].id] = i;
         }
         if (unique) break;
+        
+        // assign rank2 for next round, just use the just assigned rank1
         for (int i = 0; i < n; ++i) {
             int nextInd = suffices[i].id + k/2;
             suffices[i].rank2 = nextInd < n ? suffices[invInd[nextInd]].rank1 : -1;
@@ -56,3 +63,35 @@ vector<int> suffixArray(const string& s) {
 }
 ~~~
 
+## O(nlogn) algorithm
+We can observe that all the ranks are in range [-1, n). By using radix sort, we can avoid a logn factor in time complexity.
+
+## O(n) algorithm
+See DC3.
+
+## Build Longest Common Prefix (LCP) of Suffix Array in O(n)
+Def. lcp[i] is the length of lcp between suffix starting at position s[i] and the suffix with next rank. If this is the last suffix in sa, lcp[i] = 0.    
+Lemma. lcp[i+1] >= lcp[i]-1   
+Intuition: we denote suffix starting at s[i] as suffix[i]. We have suffix[i].substr(1:) == suffix[i+1]. In sa, suppose the corresponding next suffix of suffix[i] and suffix[i+1] are suffix[j] and suffix[j'] respectively. We have cp(suffix[i], suffix[i+1]) == suffix[i][0] + cp(suffix[j], suffix[j']). As a result, lcp[i+1] >= lcp[i]-1.     
+Code:
+~~~
+vector<int> lcpArray(string& s, vector<int>& sa) {
+    int n = s.size();
+    // invInd[i] = r: suffix start at s[i] has rank r (is at sa[r])
+    vector<int> lcp(n, 0), invInd(n, 0);
+    for (int i = 0; i < n; ++i) invInd[sa[i]] = i;
+    // here i is the suffix starting position
+    for (int i = 0, len = 0; i < n; ++i) {
+        if (invInd[i] == n-1) {
+            len = 0;
+            continue;
+        }
+        int j = sa[invInd[i]+1]; // j is the start position in s of the next rank suffix
+        while (i+len < n && j+len < n && s[i+len] == s[j+len]) len++;
+        lcp[invInd[i]] = len;
+        // we keep len due to h(i+1) >= h(i)-1
+        len = max(len-1, 0);
+    }
+    return lcp;
+}
+~~~
