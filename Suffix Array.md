@@ -15,7 +15,7 @@ eg. s = "banana", sa = [5,3,1,0,4,2]
 - If key2_k is beyond string s, assign -1 as its rank.
 - To initialize, the rank is just s[i]-'a'.     
 Code:
-~~~
+~~~C++
 class Suffix {
 public:
     int id, rank1, rank2;
@@ -75,21 +75,28 @@ Lemma. lcp[i+1] >= lcp[i]-1
 Intuition: we denote suffix starting at s[i] as suffix[i]. We have suffix[i].substr(1:) == suffix[i+1]. In sa, suppose the corresponding next suffix of suffix[i] and suffix[i+1] are suffix[j] and suffix[j'] respectively. We have cp(suffix[i], suffix[i+1]) == suffix[i][0] + cp(suffix[j], suffix[j']). As a result, lcp[i+1] >= lcp[i]-1.   
 By using the lemma, we can keep the previous lcp as the starting point to check the next lcp.
 Code:
-~~~
+~~~C++
 vector<int> lcpArray(string& s, vector<int>& sa) {
     int n = s.size();
+    
     // invInd[i] = r: suffix start at s[i] has rank r (is at sa[r])
     vector<int> lcp(n, 0), invInd(n, 0);
     for (int i = 0; i < n; ++i) invInd[sa[i]] = i;
+    
     // here i is the suffix starting position
     for (int i = 0, len = 0; i < n; ++i) {
         if (invInd[i] == n-1) {
             len = 0;
             continue;
         }
-        int j = sa[invInd[i]+1]; // j is the start position in s of the next rank suffix
+        
+        // j is the start position in s of the next rank suffix
+        int j = sa[invInd[i]+1];
         while (i+len < n && j+len < n && s[i+len] == s[j+len]) len++;
-        lcp[invInd[i]] = len;
+        
+        // alternative: lcp[invInd[i]] = len
+        lcp[i] = len;
+        
         // we keep len due to h(i+1) >= h(i)-1
         len = max(len-1, 0);
     }
