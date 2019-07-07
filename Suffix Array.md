@@ -67,12 +67,13 @@ vector<int> suffixArray(const string& s) {
 We can observe that all the ranks are in range [-1, n). By using radix sort, we can avoid a logn factor in time complexity.
 
 ## O(n) algorithm
-See DC3.
+See DC3 and SA-IS algorithm.
 
 ## Build Longest Common Prefix (LCP) of Suffix Array in O(n)
 Def. lcp[i] is the length of lcp between suffix starting at position s[i] and the suffix with next rank. If this is the last suffix in sa, lcp[i] = 0.    
 Lemma. lcp[i+1] >= lcp[i]-1   
-Intuition: we denote suffix starting at s[i] as suffix[i]. We have suffix[i].substr(1:) == suffix[i+1]. In sa, suppose the corresponding next suffix of suffix[i] and suffix[i+1] are suffix[j] and suffix[j'] respectively. We have cp(suffix[i], suffix[i+1]) == suffix[i][0] + cp(suffix[j], suffix[j']). As a result, lcp[i+1] >= lcp[i]-1.     
+Intuition: we denote suffix starting at s[i] as suffix[i]. We have suffix[i].substr(1:) == suffix[i+1]. In sa, suppose the corresponding next suffix of suffix[i] and suffix[i+1] are suffix[j] and suffix[j'] respectively. We have cp(suffix[i], suffix[i+1]) == suffix[i][0] + cp(suffix[j], suffix[j']). As a result, lcp[i+1] >= lcp[i]-1.   
+By using the lemma, we can keep the previous lcp as the starting point to check the next lcp.
 Code:
 ~~~
 vector<int> lcpArray(string& s, vector<int>& sa) {
