@@ -13,7 +13,7 @@ class GenericMerge {
         process(l, m), process(m, r);
         for (Itr i = l, j = m; i != m; ++i) {
             while (j != r && !criterion(i, j)) ++j;
-            updateResult(i, j, m);
+            updateResult(i, j, m, res);
         }
         inplace_merge(l, m, r);
     }
