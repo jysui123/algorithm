@@ -1,3 +1,7 @@
+/*
+ * Template of generic merge
+ */
+
 #include <vector>
 #include <algorithm>
 #include <functional>
@@ -21,6 +25,7 @@ class GenericMerge {
 public:
     using Vec = vector<pair<T, int>>;
     using Itr = Vec::iterator;
+    // ! need modification for these templates
     function<bool(Itr, Itr)> criterion;
     function<void(Itr, Itr, Itr, Res)> updateResult;
     void doMerge(vector<T> &vec, Res &res) {
@@ -28,6 +33,5 @@ public:
         for (int i = 0; i < vec.size(); ++i)
             zipped.push_back({vec[i], i});
         process(zipped.begin(), zipped.end(), res);
-        return res;
     }
 };
