@@ -8,6 +8,7 @@ Useful algorithms for OJ
 ### String
 - Suffix Array
 ### Graph
+- Dijkstra Single Source Shortest Path
 - Maximum Flow
 - Minimum Cost Maximum Flow
 ### Geometry
