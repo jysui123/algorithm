@@ -23,7 +23,7 @@ public:
             if (dist[i] != d) continue;
             for (auto& e : g[i]) {
                 int j = e.first, w = e.second;
-                if (dist[j] < d + w) {
+                if (dist[j] > d + w) {
                     dist[j] = d + w;
                     pq.push({dist[j], j});
                     pre[j] = i;
