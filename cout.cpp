@@ -30,18 +30,24 @@ ostream& operator<<(ostream& os, const unordered_map<K, V>& m) {
 	return os << endl;
 }
 
-template <typename T, int N1, int N2>
-void print(T (&arr)[N1][N2]) {
-	for (int i = 0; i < N1; ++i) {
-		for (int j = 0; j < N2; ++j)
-			cout << arr[i][j] << " ";
-		cout << endl;
+template <typename T, unsigned int N>
+ostream& operator<<(ostream& os, T (&arr)[N]) {
+	for (int i = 0; i < N; ++i) {
+		os << arr[i];
+		os << ' ';
 	}
-	cout << endl;
+	return os << endl;
+}
+
+template <typename T, unsigned int N1, unsigned int N2>
+ostream& operator<<(ostream& os, T (&arr)[N1][N2]) {
+	for (int i = 0; i < N1; ++i) os << arr[i];
+	return os << endl;
 }
 
 int main() {
-	int arr[10][4] = {};
+	constexpr int r = 5 + 2, c = 3;
+	int arr[r][c] = {};
 	arr[2][1] = arr[5][2] = 1;
-	print(arr);
+	cout << arr;
 }
