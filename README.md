@@ -5,6 +5,7 @@ Useful algorithms for OJ
 ### Array
 - Generic Merge
 - Monotonic Stack
+- Binary Index Tree
 ### String
 - Suffix Array
 ### Graph
