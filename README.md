@@ -3,7 +3,7 @@ Useful algorithms for OJ
 
 ## Index
 ### Array
-- Generic Merge
+- CDQ Devide and Conquer
 - Monotonic Stack
 - Binary Index Tree
 ### String
