@@ -1,6 +1,11 @@
+/*
+ * Template to build suffix array and longest common prefix array
+ *                   O(n(logn)^2)     O(n)
+ * If use radix sort instead of std::sort, suffix array can be built in O(nlogn)
+ */
+
 #include <vector>
 #include <queue>
-#include <iostream>
 
 using namespace std;
 

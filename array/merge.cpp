@@ -1,5 +1,6 @@
 /*
- * Template of generic merge
+ * Template of CDQ divide&conquer
+ ! Need modification
  */
 
 #include <vector>

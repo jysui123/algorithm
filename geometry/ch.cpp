@@ -1,3 +1,7 @@
+/*
+ * Convex hull
+ */
+
 #include <vector>
 #include <algorithm>
 

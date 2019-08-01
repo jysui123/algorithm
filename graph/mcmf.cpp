@@ -1,3 +1,7 @@
+/*
+ * Min cost flow algorithm template
+ */
+
 #include <algorithm>
 #include <vector>
 #include <queue>

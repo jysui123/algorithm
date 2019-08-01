@@ -1,3 +1,8 @@
+/*
+ * Binary Index Tree, 1D and 2D version
+ * Support range update and range query in O(logn) time
+ */
+
 #include <vector>
 #include <queue>
 #include <iostream>

@@ -1,3 +1,7 @@
+/*
+ * Min spanning tree template (Kruskal)
+ */
+
 #include <vector>
 #include <queue>
 
