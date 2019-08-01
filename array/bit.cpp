@@ -1,6 +1,6 @@
 /*
  * Binary Index Tree, 1D and 2D version
- * Support range update and range query in O(logn) time
+ * Support range update and range query in O(logn), O((logn)^2) time respectively
  */
 
 #include <vector>
