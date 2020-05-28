@@ -25,17 +25,13 @@ ostream& operator<<(ostream& os, const unordered_set<T>& v) {
 
 template <typename K, typename V>
 ostream& operator<<(ostream& os, const unordered_map<K, V>& m) {
-	for (const auto& p : m)
-		os << p.first << ": " << p.second << endl;
+	for (const auto& p : m) os << p.first << ": " << p.second << endl;
 	return os << endl;
 }
 
 template <typename T, unsigned int N>
 ostream& operator<<(ostream& os, T (&arr)[N]) {
-	for (int i = 0; i < N; ++i) {
-		os << arr[i];
-		os << ' ';
-	}
+	for (int i = 0; i < N; ++i) os << arr[i] << ' ';
 	return os << endl;
 }
 
